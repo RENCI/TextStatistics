@@ -161,4 +161,4 @@ getSingular string =
                     Just (_, singular) -> singular
                     Nothing -> case matchAndReplace singular lowercaseWord of
                         Just singular -> singular
-                        Nothing -> (error "cannot find singular form for word" ++ string)
+                        Nothing -> string
