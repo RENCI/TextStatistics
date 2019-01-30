@@ -68,8 +68,8 @@ arrProblemWords = fromList [
     ]
 
 -- | These syllables would be counted as two but should be one
-arrSubSyllables :: [Regex]
-arrSubSyllables = map mkRegex [
+arrSubSyllables :: [String]
+arrSubSyllables = [
          "cia(l|$)" -- glacial, acacia
         ,"tia"
         ,"cius"
@@ -150,8 +150,8 @@ arrSubSyllables = map mkRegex [
     ]   
 
 -- | These syllables would be counted as one but should be two
-arrAddSyllables :: [Regex]
-arrAddSyllables = map mkRegex [
+arrAddSyllables :: [String]
+arrAddSyllables = [
          "([^s]|^)ia"
         ,"riet"
         ,"dien" -- audience
@@ -279,7 +279,7 @@ syllableCount strWord =
                                                 intWordPartCount = length (filter (/= "") arrWordParts)
                                                 -- Some syllables do not follow normal rules - check for them
                                                 -- Thanks to Joe Kovar for correcting a bug in the following lines
-                                                intSyllableCount = intWordPartCount + intAffixCount + 2 * intDoubleAffixCount + 3 * intTripleAffixCount - snd (foldl' matchAndCount (singularWord4, 0) arrSubSyllables) + snd (foldl' matchAndCount (singularWord4, 0) arrAddSyllables) in
+                                                intSyllableCount = intWordPartCount + intAffixCount + 2 * intDoubleAffixCount + 3 * intTripleAffixCount - foldl' (matchAndCount singularWord4) 0 arrSubSyllables + foldl' (matchAndCount singularWord4) 0 arrAddSyllables in
                                                 if intSyllableCount == 0 then 1 else intSyllableCount
 
                                                 

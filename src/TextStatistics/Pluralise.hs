@@ -18,11 +18,13 @@ plural = map (first mkRegex) [
         ("(quiz)$", "$1zes"),
         ("^(ox)$", "$1en"),
         ("([m|l])ouse$", "$1ice"),
-        ("(matrix|vertex|index)$", "$1ices"),
+        ("(matr)ix$", "$1ices"),
+        ("(vert|ind)ex$", "$1ices"),
         ("(x|ch|ss|sh)$", "$1es"),
         ("([^aeiouy]|qu)y$", "$1ies"),
         ("(hive)$", "$1s"),
-        ("(?:([^f])fe|([lr])f)$", "$1$2ves"),
+        ("([^f])fe$", "$1ves"),
+        ("([lr])f$", "$1ves"),
         ("(shea|lea|loa|thie)f$", "$1ves"),
         ("sis$", "ses"),
         ("([ti])um$", "$1a"),
@@ -123,9 +125,13 @@ matchAndReplace [] str = Nothing
 matchAndReplace ((re, restr) : t) str =
     case matchRegexAll re str of
         Nothing -> matchAndReplace t str
-        Just (pre, _, post, (sub : _)) -> 
-            let i = fromJust (findSubstring "$1" restr) in
-                Just (pre ++ take i restr ++ sub ++ drop (i + 2) restr ++ post)
+        Just (pre, _, post, ms) -> 
+            case ms of
+                [] ->
+                    Just (pre ++ restr ++ post)
+                sub : _ -> 
+                    let i = fromJust (findSubstring "$1" restr) in
+                        Just (pre ++ take i restr ++ sub ++ drop (i + 2) restr ++ post)
 
 {- |
    Get the plural of the word passed in.
