@@ -320,4 +320,4 @@ percentageWordsWithThreeSyllables strText blnCountProperNouns =
     let arrWords = words strText
         intWordCount = length arrWords
         intLongWordCount = wordsWithThreeSyllables strText blnCountProperNouns in
-        fromIntegral intLongWordCount / fromIntegral intWordCount
+        fromIntegral intLongWordCount / fromIntegral intWordCount * 100
