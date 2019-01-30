@@ -24,9 +24,9 @@ cleanText strText =
         -- Assume blank lines (i.e., paragraph breaks) end sentences (useful
         -- for titles in plain text documents) and replace remaining new
         -- lines with spaces
-        strText3 = subRegex (mkRegex "(\\r\\n|\\n\\r)") strText2 "\n"
-        strText4 = subRegex (mkRegex "(\\r|\\n){2,}") strText3 ".\n\n"
-        strText5 = subRegex (mkRegex "[ ]*(\\n|\\r\\n|\\r)[ ]*") strText4 " "
+        strText3 = subRegex (mkRegex "(\r\n|\n\r)") strText2 "\n"
+        strText4 = subRegex (mkRegex "(\r|\n){2,}") strText3 ".\n\n"
+        strText5 = subRegex (mkRegex "[ ]*(\n|\r\n|\r)[ ]*") strText4 " "
 
         -- Replace commas, hyphens, quotes etc (count as spaces)
         strText6 = subRegex (mkRegex "[\",:;()/`-]") strText5 " "
