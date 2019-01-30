@@ -74,7 +74,7 @@ gunningFogScore strText =
 colemanLiauIndex :: String -- ^ Text to be checked
                  -> Double
 colemanLiauIndex strText =
-    5.89 * fromIntegral (letterCount strText) / fromIntegral (wordCount strText) - 0.3 * fromIntegral (sentenceCount strText) / fromIntegral (wordCount strText) - 15.8
+    0.0588 * fromIntegral (letterCount strText) / fromIntegral (wordCount strText) * 100 - 0.296 * fromIntegral (sentenceCount strText) / fromIntegral (wordCount strText) * 100 - 15.8
 
 {- |
    Gives the SMOG Index of text entered
